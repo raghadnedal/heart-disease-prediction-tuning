@@ -1,4 +1,6 @@
-# Heart Disease Prediction with Model Tuning
+# Heart Disease Prediction and Deployment
+
+An end-to-end machine learning project for heart disease risk prediction, covering data analysis, model tuning, threshold selection, reusable inference, automated testing, and deployment with Streamlit.
 
 ## Project Overview
 
@@ -12,7 +14,15 @@ It is a binary classification problem:
 The main focus was not only accuracy, but also recall and false negatives because missing a real heart disease patient is an important error.
 
 ---
+## Live Application
 
+The trained model is deployed as an interactive Streamlit web application.
+
+**Live Demo:** [Open the Heart Disease Prediction App](ضعِي-الرابط-هنا)
+
+> This application is an educational machine learning project and does not provide a medical diagnosis.
+
+---
 ## Dataset
 
 The dataset contains:
@@ -110,6 +120,51 @@ Its test results were approximately:
 The training and testing results were close, which showed good generalization and reduced overfitting.
 
 ---
+## Deployment Pipeline
+
+The final application accepts the original 11 patient features directly.
+
+The deployed workflow is:
+
+1. Receive raw patient data from the Streamlit form.
+2. Validate feature names, ranges, and categorical values.
+3. Apply preprocessing using the saved scikit-learn pipeline.
+4. Generate the heart disease probability.
+5. Apply the selected classification threshold of `0.30`.
+6. Display the prediction and probability to the user.
+
+The preprocessing pipeline and trained Gradient Boosting model were saved together using `joblib`. This ensures that the application uses exactly the same transformations that were used during training.
+
+---
+## Decision Threshold
+
+The final classification threshold is `0.30`.
+
+This threshold was selected using out-of-fold probabilities generated from the training data with cross-validation. It was chosen to prioritize recall and reduce false negatives.
+
+The test set was used only for final evaluation after the threshold had been selected.
+
+The threshold is stored with the model artifact so that the notebook, prediction module, tests, and deployed application all use the same value.
+
+---
+
+## Prediction Testing
+
+The deployment code includes automated tests for:
+
+- Valid patient prediction
+- Missing input features
+- Invalid numerical values
+- Invalid categorical values
+- Unexpected input features
+
+The tests can be run using:
+
+```bash
+python -m unittest test_predict.py
+```
+
+---
 
 ## XGBoost Experiment
 
@@ -155,16 +210,27 @@ This project helped me understand that a strong machine learning model is not se
 - Matplotlib
 - Scikit-learn
 - XGBoost
+- Joblib
+- Streamlit
+- Unittest
 - Jupyter Notebook
+- Git and GitHub
 
 ---
 
-## Files
+## Project Structure
 
-- `heart.csv`
-- `heart_disease_tuning.ipynb`
-- `README.md`
-- `.gitignore`
+| File | Purpose |
+|---|---|
+| `heart_disease_tuning.ipynb` | Data analysis, experimentation, model selection, and evaluation |
+| `heart.csv` | Original dataset |
+| `heart_disease_model.joblib` | Saved preprocessing pipeline, model, threshold, and metadata |
+| `predict.py` | Input validation and reusable prediction logic |
+| `test_predict.py` | Automated tests for the prediction module |
+| `app.py` | Streamlit web application |
+| `requirements.txt` | Exact Python dependencies required to run the project |
+| `README.md` | Project documentation |
+| `.gitignore` | Files and directories excluded from Git |
 
 ---
 
