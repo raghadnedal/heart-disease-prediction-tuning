@@ -18,7 +18,7 @@ The main focus was not only accuracy, but also recall and false negatives becaus
 
 The trained model is deployed as an interactive Streamlit web application.
 
-**Live Demo:** [Open the Heart Disease Prediction App](ضعِي-الرابط-هنا)
+**Live Demo:** [Open the Heart Disease Prediction App](https://raghad-heart-disease-prediction.streamlit.app/)
 
 > This application is an educational machine learning project and does not provide a medical diagnosis.
 
